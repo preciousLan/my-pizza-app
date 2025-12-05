@@ -1,7 +1,11 @@
 'use client';
+
 import { ShoppingCartIcon, TrashIcon } from '@heroicons/react/16/solid';
 import { product } from '../_types/types';
 import { useDispatch, useSelector } from 'react-redux';
+
+import type { RootState } from '../store'; // <-- THIS FIXES TS + ESLINT
+
 import { addToCart, CartItem, removeFromCart } from '../_redux/cartSlice';
 
 interface dataProps {
@@ -10,7 +14,9 @@ interface dataProps {
 
 const AddToCartButton = ({ data }: dataProps) => {
 	const dispatch = useDispatch();
-	const cart = useSelector((state) => state.cart.cart);
+
+	// 🟢 Fully typed. No "any", no ESLint error.
+	const cart = useSelector((state: RootState) => state.cart.cart);
 
 	const { title, price, image, id } = data;
 
@@ -21,7 +27,8 @@ const AddToCartButton = ({ data }: dataProps) => {
 		image,
 	};
 
-	const exists = cart.find((f) => f.id === id);
+	const exists = cart.find((item) => item.id === id);
+
 	if (exists)
 		return (
 			<div
@@ -31,6 +38,7 @@ const AddToCartButton = ({ data }: dataProps) => {
 				<p>Remove From Cart</p>
 			</div>
 		);
+
 	return (
 		<div
 			className='absolute bottom-2.5 left-0 bg-amber-600 text-gray-800 p-3 flex gap-2 hover:translate-x-1 transition-all cursor-pointer'
