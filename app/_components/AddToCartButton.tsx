@@ -1,30 +1,40 @@
 'use client';
-import { ShoppingCartIcon } from '@heroicons/react/16/solid';
+import { ShoppingCartIcon, TrashIcon } from '@heroicons/react/16/solid';
 import { product } from '../_types/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, CartItem, removeFromCart } from '../_redux/cartSlice';
 
 interface dataProps {
 	data: product;
 }
-type newItemsType = Pick<product, 'title' | 'category' | 'price' | 'image'>;
 
 const AddToCartButton = ({ data }: dataProps) => {
-	const { title, category, price, rating, image } = data;
+	const dispatch = useDispatch();
+	const cart = useSelector((state) => state.cart.cart);
 
-	const newItems = {
+	const { title, price, image, id } = data;
+
+	const newItems: CartItem = {
+		id,
 		title,
-		category,
 		price,
 		image,
 	};
 
-	function handleClick(newItems: newItemsType) {
-		console.log(newItems);
-	}
-
+	const exists = cart.find((f) => f.id === id);
+	if (exists)
+		return (
+			<div
+				className='absolute bottom-2.5 left-0 bg-amber-600 text-gray-800 p-3 flex gap-2 hover:translate-x-1 transition-all cursor-pointer'
+				onClick={() => dispatch(removeFromCart(id))}>
+				<TrashIcon className='w-6 h-6 text-gray-800' />
+				<p>Remove From Cart</p>
+			</div>
+		);
 	return (
 		<div
 			className='absolute bottom-2.5 left-0 bg-amber-600 text-gray-800 p-3 flex gap-2 hover:translate-x-1 transition-all cursor-pointer'
-			onClick={() => handleClick(newItems)}>
+			onClick={() => dispatch(addToCart(newItems))}>
 			<ShoppingCartIcon className='w-6 h-6 text-gray-800' />
 			<p>add to cart</p>
 		</div>

@@ -1,6 +1,7 @@
 import AddToCartButton from '@/app/_components/AddToCartButton';
 import Button from '@/app/_components/Button';
 import Image from 'next/image';
+import BackIcon from '@/app/_components/BackIcon';
 
 interface paramsProp {
 	params: {
@@ -26,15 +27,18 @@ export default async function Page({ params }: paramsProp) {
 		rating,
 	} = data;
 	return (
-		<div className='flex min-h-screen p-5 '>
-			<div className='max-w-[1000px] w-full mx-auto flex flex-col md:flex-row items-center justify-center bg-gray-100 gap-[50px]'>
-				<div className='relative w-[400px] h-[400px]'>
+		<div className='flex min-h-screen  '>
+			<div className='max-w-6xl w-full mx-auto flex flex-col  items-center justify-center bg-gray-100 gap-[50px] relative'>
+				<div className='absolute top-1 left-3'>
+					<BackIcon />
+				</div>
+				<div className='relative h-[300px] w-[200px] lg:w-[400px] lg:min-h-[400px]'>
 					<Image src={image} alt={title} fill className='object-cover' />
 
 					<AddToCartButton data={data} />
 				</div>
 
-				<div className=' flex flex-col w-[450px]'>
+				<div className=' flex flex-col w-full max-w-[800px] px-3 '>
 					<h1 className='text-white text-sm font-bold mb-5 bg-amber-600 px-5 p-3 rounded-full text-center'>
 						{title}
 					</h1>

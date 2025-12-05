@@ -1,5 +1,7 @@
-import Products from '../_components/Products';
+import { Suspense } from 'react';
+import SearchInput from '../_components/SearchInput';
 import { product } from '../_types/types';
+import Loader from '../_components/Loader';
 
 export default async function Home() {
 	const res = await fetch('https://fakestoreapi.com/products');
@@ -14,12 +16,10 @@ export default async function Home() {
 				{' '}
 				Find Whatever you want with Ease!
 			</h1>
-			<div className='grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-[60px] max-w-6xl mx-auto   p-4 rounded-lg justify-items-center mt-[100px] 
-			'>
-				{data.map((product) => (
-					<Products key={product.id} product={product} />
-				))}
-			</div>
+			<Suspense fallback={<Loader/>}>
+			<SearchInput data={data} />
+
+			</Suspense>
 		</main>
 	);
 }

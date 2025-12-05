@@ -9,10 +9,10 @@ import { product } from '../_types/types';
 type productProp = {
 	product: product;
 };
-const Products = ({ product }:productProp) => {
+const Products = ({ product }: productProp) => {
 	const { id, title, price, description, category, image, rating } = product;
 	return (
-		<Card  className='relative bg-gray-100!'>
+		<Card className='relative bg-gray-100!'>
 			<div className='relative w-full h-[400px]'>
 				<Image src={image} alt={title} fill className='object-cover' />
 			</div>
@@ -37,7 +37,7 @@ const Products = ({ product }:productProp) => {
 					href={`/products/${id}`}
 					className='bg-primary py-2 rounded-full px-5 absolute bottom-2 font-bold shadow shadow-cyan-800 hover:opacity-80 hover:-translate-y-1 transition-all'>
 					{' '}
-					Check Out
+					Check Out: ${price}
 				</Link>
 			</CardActions>
 		</Card>
