@@ -1,17 +1,22 @@
-"use client"
+"use client";
 
-const CartItems = ({cart}) => {
-   const {id,image,title,price} = cart
+import { CartItem } from "../_redux/cartSlice";
+
+interface CartItemsProps {
+  cart: CartItem; // <-- typed. No implicit any error.
+}
+
+const CartItems = ({ cart }: CartItemsProps) => {
+  const { id, image, title, price } = cart;
 
   return (
     <div className="px-4">
-    <div className="flex bg-red-100 p-3  border gap-5 justify-between w-full max-w-[700px] mx-auto mt-10">
+      <div className="flex bg-red-100 p-3 border gap-5 justify-between w-full max-w-[700px] mx-auto mt-10">
         <p className="max-w-[300px]">{title}</p>
         <p>{price}</p>
+      </div>
     </div>
+  );
+};
 
-    </div>
-  )
-}
-
-export default CartItems
+export default CartItems;
