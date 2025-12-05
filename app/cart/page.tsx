@@ -2,11 +2,11 @@
 
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
-import type { RootState } from '../store'; // ✅ IMPORTANT FIX
+import type { RootState } from '../store';
 import CartItems from '../_components/CartItems';
 
 const Page = () => {
-  // 🟢 FIX: type the selector state
+  // typed selector state
   const cart = useSelector((state: RootState) => state.cart.cart);
 
   if (cart.length === 0)
@@ -34,3 +34,5 @@ const Page = () => {
     </div>
   );
 };
+
+export default Page;
